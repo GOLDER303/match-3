@@ -6,15 +6,17 @@ public class Match3Visual : MonoBehaviour
 {
     [SerializeField] private GameObject gemGridVisualPrefab;
 
-    private Match3Logic match3Logic;
     private GemGrid gemGrid;
     private Dictionary<GemGridPosition, GameObject> gemGridDictionary = new Dictionary<GemGridPosition, GameObject>();
-    private Vector2Int startDragGemXY = new Vector2Int(-1, -1);
-    private Vector2Int endDragGemXY = new Vector2Int(-1, -1);
 
-    private void Awake()
+    private void OnEnable()
     {
-        match3Logic = GetComponent<Match3Logic>();
+        Match3Logic.OnGridCreated += Setup;
+    }
+
+    private void OnDisable()
+    {
+        Match3Logic.OnGridCreated -= Setup;
     }
 
     public void Setup(GemGrid gemGrid)
@@ -39,51 +41,6 @@ public class Match3Visual : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mouseWorldPosition = GetMouseWorldPosition();
-            startDragGemXY = gemGrid.GetGemGridPositionXY(mouseWorldPosition);
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            Vector3 mouseWorldPosition = GetMouseWorldPosition();
-            endDragGemXY = gemGrid.GetGemGridPositionXY(mouseWorldPosition);
-
-            if (startDragGemXY.x == endDragGemXY.x && startDragGemXY.y == endDragGemXY.y)
-            {
-                return;
-            }
-
-            if (startDragGemXY.x != endDragGemXY.x)
-            {
-                if (endDragGemXY.x < startDragGemXY.x)
-                {
-                    endDragGemXY.x = startDragGemXY.x - 1;
-                }
-                else
-                {
-                    endDragGemXY.x = startDragGemXY.x + 1;
-                }
-            }
-            else
-            {
-                if (endDragGemXY.y < startDragGemXY.y)
-                {
-                    endDragGemXY.y = startDragGemXY.y - 1;
-                }
-                else
-                {
-                    endDragGemXY.y = startDragGemXY.y + 1;
-                }
-            }
-
-            match3Logic.SwapGemsPositions(startDragGemXY, endDragGemXY);
-        }
-    }
-
     public void SwapGemsVisualPositions(Vector2Int gemOnePosition, Vector2Int gemTwoPosition)
     {
         GemGridPosition gemOneGridPosition = gemGrid.GetGemGridPosition(gemOnePosition);
@@ -95,15 +52,5 @@ public class Match3Visual : MonoBehaviour
         Vector3 gemTwoTransformPosition = gemTwoGameObject.transform.position;
         gemTwoGameObject.transform.position = gemOneGameObject.transform.position;
         gemOneGameObject.transform.position = gemTwoTransformPosition;
-    }
-
-
-    private Vector3 GetMouseWorldPosition()
-    {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Camera.main.nearClipPlane;
-        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-
-        return mouseWorldPosition;
     }
 }

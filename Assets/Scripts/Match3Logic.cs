@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Match3Logic : MonoBehaviour
 {
+    public static event Action<GemGrid> OnGridCreated;
+
     [SerializeField] private int gridWidth = 10;
     [SerializeField] private int gridHeight = 10;
     [SerializeField] private float cellSize = .8f;
@@ -21,7 +24,7 @@ public class Match3Logic : MonoBehaviour
     private void Start()
     {
         grid = new GemGrid(gridWidth, gridHeight, cellSize, cellPadding, gemSOs);
-        match3Visual.Setup(grid);
+        OnGridCreated?.Invoke(grid);
     }
 
     public void SwapGemsPositions(Vector2Int gemOneXY, Vector2Int gemTwoXY)
