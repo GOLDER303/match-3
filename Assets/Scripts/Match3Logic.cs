@@ -23,4 +23,23 @@ public class Match3Logic : MonoBehaviour
         grid = new GemGrid(gridWidth, gridHeight, cellSize, cellPadding, gemSOs);
         match3Visual.Setup(grid);
     }
+
+    public void SwapGemsPositions(Vector2Int gemOneXY, Vector2Int gemTwoXY)
+    {
+        GemGridPosition gemOneGridPosition = grid.GetGemGridPosition(gemOneXY);
+        GemGridPosition gemTwoGridPosition = grid.GetGemGridPosition(gemTwoXY);
+
+        grid.SetGemGridPosition(gemOneXY, gemTwoGridPosition);
+        grid.SetGemGridPosition(gemTwoXY, gemOneGridPosition);
+
+        match3Visual.SwapGemsVisualPositions(gemOneXY, gemTwoXY);
+
+        CheckForLink(gemOneXY);
+        CheckForLink(gemTwoXY);
+    }
+
+    private void CheckForLink(Vector2Int gemPosition)
+    {
+
+    }
 }

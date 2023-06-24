@@ -56,13 +56,32 @@ public class GemGrid
 
     }
 
-    public Vector3 GetCellWorldPosition(int x, int y)
+    public Vector3 GetGemGridPositionWorldPosition(int x, int y)
     {
         return new Vector3(x, y) * cellSize;
     }
 
-    public GemGridPosition GetGem(int x, int y)
+    public Vector2Int GetGemGridPositionXY(Vector3 worldPosition)
+    {
+        int x = Mathf.FloorToInt(worldPosition.x / cellSize);
+        int y = Mathf.FloorToInt(worldPosition.y / cellSize);
+
+        return new Vector2Int(x, y);
+    }
+
+    public GemGridPosition GetGemGridPosition(int x, int y)
     {
         return gridArray[x, y];
+    }
+
+    public GemGridPosition GetGemGridPosition(Vector2Int gemGridPositionXY)
+    {
+        return gridArray[gemGridPositionXY.x, gemGridPositionXY.y];
+    }
+
+
+    public void SetGemGridPosition(Vector2Int gemGridPositionXY, GemGridPosition gemGridPosition)
+    {
+        gridArray[gemGridPositionXY.x, gemGridPositionXY.y] = gemGridPosition;
     }
 }
