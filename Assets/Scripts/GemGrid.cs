@@ -50,7 +50,7 @@ public class GemGrid
 
                 GemSO newGemSO = availableGemSOs[Random.Range(0, availableGemSOs.Count)];
 
-                gridArray[x, y] = new GemGridPosition(newGemSO, x, y);
+                gridArray[x, y] = new GemGridPosition(newGemSO, GetGemGridPositionWorldPosition(x, y));
             }
         }
 
@@ -58,7 +58,12 @@ public class GemGrid
 
     public Vector3 GetGemGridPositionWorldPosition(int x, int y)
     {
-        return new Vector3(x, y) * cellSize;
+        return new Vector3(x, y) * cellSize + new Vector3(cellSize / 2, cellSize / 2);
+    }
+
+    public Vector3 GetGemGridPositionWorldPosition(Vector2Int gemGridPositionXY)
+    {
+        return new Vector3(gemGridPositionXY.x, gemGridPositionXY.y) * cellSize + new Vector3(cellSize / 2, cellSize / 2);
     }
 
     public Vector2Int GetGemGridPositionXY(Vector3 worldPosition)

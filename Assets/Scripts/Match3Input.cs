@@ -73,7 +73,7 @@ public class Match3Input : MonoBehaviour
                 }
             }
 
-            match3Logic.SwapGemsPositions(startDragGemXY, endDragGemXY);
+            StartCoroutine(match3Logic.HandleGemMove(startDragGemXY, endDragGemXY));
         }
     }
 

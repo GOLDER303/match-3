@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class GemGridPosition
 {
-    private GemSO gemSO;
-    private int x;
-    private int y;
+    public Vector3 worldPosition { get; set; }
+    public bool isMoving { get; set; }
 
-    public GemGridPosition(GemSO gemSO, int x, int y)
+    private GemSO gemSO;
+
+    public GemGridPosition(GemSO gemSO, Vector3 worldPosition)
     {
         this.gemSO = gemSO;
-        this.x = x;
-        this.y = y;
+        this.worldPosition = worldPosition;
     }
 
     public GemSO GetGemSO()

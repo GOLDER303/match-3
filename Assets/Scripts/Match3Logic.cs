@@ -27,22 +27,38 @@ public class Match3Logic : MonoBehaviour
         OnGridCreated?.Invoke(grid);
     }
 
-    public void SwapGemsPositions(Vector2Int gemOneXY, Vector2Int gemTwoXY)
+    public IEnumerator HandleGemMove(Vector2Int gemOneXY, Vector2Int gemTwoXY)
+    {
+        SwapGemsPositions(gemOneXY, gemTwoXY);
+
+        if (HasMatch3Link(gemOneXY) || HasMatch3Link(gemTwoXY))
+        {
+            //TODO
+        }
+        else
+        {
+            yield return null;
+            yield return new WaitWhile(() => grid.GetGemGridPosition(gemOneXY).isMoving || grid.GetGemGridPosition(gemTwoXY).isMoving);
+            yield return null;
+            SwapGemsPositions(gemOneXY, gemTwoXY);
+        }
+    }
+
+    private void SwapGemsPositions(Vector2Int gemOneXY, Vector2Int gemTwoXY)
     {
         GemGridPosition gemOneGridPosition = grid.GetGemGridPosition(gemOneXY);
         GemGridPosition gemTwoGridPosition = grid.GetGemGridPosition(gemTwoXY);
 
+        gemOneGridPosition.worldPosition = grid.GetGemGridPositionWorldPosition(gemTwoXY);
+        gemTwoGridPosition.worldPosition = grid.GetGemGridPositionWorldPosition(gemOneXY);
+
         grid.SetGemGridPosition(gemOneXY, gemTwoGridPosition);
         grid.SetGemGridPosition(gemTwoXY, gemOneGridPosition);
-
-        match3Visual.SwapGemsVisualPositions(gemOneXY, gemTwoXY);
-
-        CheckForLink(gemOneXY);
-        CheckForLink(gemTwoXY);
     }
 
-    private void CheckForLink(Vector2Int gemPosition)
+    private bool HasMatch3Link(Vector2Int gemPosition)
     {
-
+        //TODO
+        return false;
     }
 }
