@@ -23,7 +23,7 @@ public class Match3Logic : MonoBehaviour
 
     private void Start()
     {
-        grid = new GemGrid(gridWidth, gridHeight, cellSize, cellPadding, gemSOs);
+        grid = new GemGrid(gridWidth, gridHeight, cellSize, cellPadding, gemSOs, transform.position);
         OnGridCreated?.Invoke(grid);
     }
 

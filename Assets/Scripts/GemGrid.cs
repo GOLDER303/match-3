@@ -9,16 +9,18 @@ public class GemGrid
     public float cellSize { get; }
     public float cellPadding { get; }
     private List<GemSO> gemSos;
+    private Vector3 originPosition;
 
     private GemGridPosition[,] gridArray;
 
-    public GemGrid(int width, int height, float cellSize, float cellPadding, List<GemSO> gemSOs)
+    public GemGrid(int width, int height, float cellSize, float cellPadding, List<GemSO> gemSOs, Vector3 originPosition)
     {
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
         this.cellPadding = cellPadding;
         this.gemSos = gemSOs;
+        this.originPosition = originPosition;
 
         gridArray = new GemGridPosition[width, height];
 
@@ -58,18 +60,18 @@ public class GemGrid
 
     public Vector3 GetGemGridPositionWorldPosition(int x, int y)
     {
-        return new Vector3(x, y) * cellSize + new Vector3(cellSize / 2, cellSize / 2);
+        return new Vector3(x, y) * cellSize + new Vector3(cellSize / 2, cellSize / 2) + originPosition;
     }
 
     public Vector3 GetGemGridPositionWorldPosition(Vector2Int gemGridPositionXY)
     {
-        return new Vector3(gemGridPositionXY.x, gemGridPositionXY.y) * cellSize + new Vector3(cellSize / 2, cellSize / 2);
+        return new Vector3(gemGridPositionXY.x, gemGridPositionXY.y) * cellSize + new Vector3(cellSize / 2, cellSize / 2) + originPosition;
     }
 
     public Vector2Int GetGemGridPositionXY(Vector3 worldPosition)
     {
-        int x = Mathf.FloorToInt(worldPosition.x / cellSize);
-        int y = Mathf.FloorToInt(worldPosition.y / cellSize);
+        int x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
+        int y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
 
         return new Vector2Int(x, y);
     }
