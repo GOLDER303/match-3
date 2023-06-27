@@ -107,7 +107,14 @@ public class Match3Logic : MonoBehaviour
 
     private bool HasMatch3Link(int x, int y)
     {
-        GemSO gemSO = grid.GetGemGridPosition(x, y).GetGemSO();
+        GemGridPosition gemGridPosition = grid.GetGemGridPosition(x, y);
+
+        if (gemGridPosition.isDestroyed)
+        {
+            return false;
+        }
+
+        GemSO gemSO = gemGridPosition.GetGemSO();
 
         int rightLinkCount = CountMatchingGems(gemSO, x, y, 1, 0);
         int leftLinkCount = CountMatchingGems(gemSO, x, y, -1, 0);
