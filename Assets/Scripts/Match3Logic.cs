@@ -99,90 +99,10 @@ public class Match3Logic : MonoBehaviour
     {
         GemSO gemSO = grid.GetGemGridPosition(x, y).GetGemSO();
 
-        int rightLinkCount = 0;
-        for (int i = 1; i < gridWidth; i++)
-        {
-            if (grid.IsValidGridPosition(x + i, y) && !IsGemGridPositionDestroyed(x + i, y))
-            {
-                GemSO nextGemSO = grid.GetGemGridPosition(x + i, y).GetGemSO();
-                if (nextGemSO == gemSO)
-                {
-                    rightLinkCount++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            else
-            {
-                break;
-            }
-        }
-
-
-        int leftLinkCount = 0;
-        for (int i = -1; i < gridWidth; i--)
-        {
-            if (grid.IsValidGridPosition(x + i, y) && !IsGemGridPositionDestroyed(x + i, y))
-            {
-                GemSO nextGemSO = grid.GetGemGridPosition(x + i, y).GetGemSO();
-                if (nextGemSO == gemSO)
-                {
-                    leftLinkCount++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        int topLinkCount = 0;
-        for (int i = 1; i < gridWidth; i++)
-        {
-            if (grid.IsValidGridPosition(x, y + i) && !IsGemGridPositionDestroyed(x, y + i))
-            {
-                GemSO nextGemSO = grid.GetGemGridPosition(x, y + i).GetGemSO();
-                if (nextGemSO == gemSO)
-                {
-                    topLinkCount++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        int bottomLinkCount = 0;
-        for (int i = -1; i < gridWidth; i--)
-        {
-            if (grid.IsValidGridPosition(x, y + i) && !IsGemGridPositionDestroyed(x, y + i))
-            {
-                GemSO nextGemSO = grid.GetGemGridPosition(x, y + i).GetGemSO();
-                if (nextGemSO == gemSO)
-                {
-                    bottomLinkCount++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            else
-            {
-                break;
-            }
-        }
+        int rightLinkCount = CountMatchingGems(gemSO, x, y, 1, 0);
+        int leftLinkCount = CountMatchingGems(gemSO, x, y, -1, 0);
+        int topLinkCount = CountMatchingGems(gemSO, x, y, 0, 1);
+        int bottomLinkCount = CountMatchingGems(gemSO, x, y, 0, -1);
 
         if (rightLinkCount + 1 + leftLinkCount >= 3)
         {
@@ -195,6 +115,30 @@ public class Match3Logic : MonoBehaviour
         }
 
         return false;
+    }
+
+    private int CountMatchingGems(GemSO gemSO, int startX, int startY, int offsetX, int offsetY)
+    {
+        int linkCount = 0;
+        int i = 1;
+
+        while (grid.IsValidGridPosition(startX + (i * offsetX), startY + (i * offsetY)) &&
+               !IsGemGridPositionDestroyed(startX + (i * offsetX), startY + (i * offsetY)))
+        {
+            GemSO nextGemSO = grid.GetGemGridPosition(startX + (i * offsetX), startY + (i * offsetY)).GetGemSO();
+            if (nextGemSO == gemSO)
+            {
+                linkCount++;
+            }
+            else
+            {
+                break;
+            }
+
+            i++;
+        }
+
+        return linkCount;
     }
 
     private bool IsGemGridPositionDestroyed(int x, int y)
