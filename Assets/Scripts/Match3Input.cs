@@ -52,6 +52,8 @@ public class Match3Input : MonoBehaviour
 
             if (startDragGemXY.x != endDragGemXY.x)
             {
+                endDragGemXY.y = startDragGemXY.y;
+
                 if (endDragGemXY.x < startDragGemXY.x)
                 {
                     endDragGemXY.x = startDragGemXY.x - 1;
@@ -63,6 +65,8 @@ public class Match3Input : MonoBehaviour
             }
             else
             {
+                endDragGemXY.x = startDragGemXY.x;
+
                 if (endDragGemXY.y < startDragGemXY.y)
                 {
                     endDragGemXY.y = startDragGemXY.y - 1;
