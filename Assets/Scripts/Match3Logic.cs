@@ -31,9 +31,17 @@ public class Match3Logic : MonoBehaviour
     {
         SwapGemsPositions(gemOneXY, gemTwoXY);
 
-        if (HasMatch3Link(gemOneXY) || HasMatch3Link(gemTwoXY))
+        yield return null;
+        yield return new WaitWhile(() => grid.GetGemGridPosition(gemOneXY).isMoving || grid.GetGemGridPosition(gemTwoXY).isMoving);
+        yield return null;
+
+        if (HasMatch3Link(gemOneXY.x, gemOneXY.y) || HasMatch3Link(gemTwoXY.x, gemTwoXY.y))
         {
-            //TODO
+            while (DestroyAllMatches())
+            {
+                FillEmptyGemGridPositions();
+                SpawnMissingGemGridPositions();
+            }
         }
         else
         {
@@ -56,9 +64,156 @@ public class Match3Logic : MonoBehaviour
         grid.SetGemGridPosition(gemTwoXY, gemOneGridPosition);
     }
 
-    private bool HasMatch3Link(Vector2Int gemPosition)
+
+    private bool DestroyAllMatches()
     {
-        //TODO
+        HashSet<Vector2Int> allLinkedGemGridPositions = GetAllLinkedGemGridPosition();
+
+        foreach (Vector2Int gemGridPositionXY in allLinkedGemGridPositions)
+        {
+            DestroyGemGridPosition(gemGridPositionXY);
+        }
+
+        return allLinkedGemGridPositions.Count >= 1;
+    }
+
+    private HashSet<Vector2Int> GetAllLinkedGemGridPosition()
+    {
+        HashSet<Vector2Int> allLinkedGemGridPositions = new HashSet<Vector2Int>();
+
+        for (int x = 0; x < gridWidth; x++)
+        {
+            for (int y = 0; y < gridHeight; y++)
+            {
+                if (HasMatch3Link(x, y) && !IsGemGridPositionDestroyed(x, y))
+                {
+                    allLinkedGemGridPositions.Add(new Vector2Int(x, y));
+                }
+            }
+        }
+
+        return allLinkedGemGridPositions;
+    }
+
+    private bool HasMatch3Link(int x, int y)
+    {
+        GemSO gemSO = grid.GetGemGridPosition(x, y).GetGemSO();
+
+        int rightLinkCount = 0;
+        for (int i = 1; i < gridWidth; i++)
+        {
+            if (grid.IsValidGridPosition(x + i, y) && !IsGemGridPositionDestroyed(x + i, y))
+            {
+                GemSO nextGemSO = grid.GetGemGridPosition(x + i, y).GetGemSO();
+                if (nextGemSO == gemSO)
+                {
+                    rightLinkCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+
+
+        int leftLinkCount = 0;
+        for (int i = -1; i < gridWidth; i--)
+        {
+            if (grid.IsValidGridPosition(x + i, y) && !IsGemGridPositionDestroyed(x + i, y))
+            {
+                GemSO nextGemSO = grid.GetGemGridPosition(x + i, y).GetGemSO();
+                if (nextGemSO == gemSO)
+                {
+                    leftLinkCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        int topLinkCount = 0;
+        for (int i = 1; i < gridWidth; i++)
+        {
+            if (grid.IsValidGridPosition(x, y + i) && !IsGemGridPositionDestroyed(x, y + i))
+            {
+                GemSO nextGemSO = grid.GetGemGridPosition(x, y + i).GetGemSO();
+                if (nextGemSO == gemSO)
+                {
+                    topLinkCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        int bottomLinkCount = 0;
+        for (int i = -1; i < gridWidth; i--)
+        {
+            if (grid.IsValidGridPosition(x, y + i) && !IsGemGridPositionDestroyed(x, y + i))
+            {
+                GemSO nextGemSO = grid.GetGemGridPosition(x, y + i).GetGemSO();
+                if (nextGemSO == gemSO)
+                {
+                    bottomLinkCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (rightLinkCount + 1 + leftLinkCount >= 3)
+        {
+            return true;
+        }
+
+        if (topLinkCount + 1 + bottomLinkCount >= 3)
+        {
+            return true;
+        }
+
         return false;
+    }
+
+    private bool IsGemGridPositionDestroyed(int x, int y)
+    {
+        return grid.GetGemGridPosition(x, y).isDestroyed;
+    }
+
+    private void DestroyGemGridPosition(Vector2Int gemGridPositionXY)
+    {
+        GemGridPosition gemGridPositionToDestroy = grid.GetGemGridPosition(gemGridPositionXY);
+        gemGridPositionToDestroy.Destroy();
+    }
+
+    private void FillEmptyGemGridPositions()
+    {
+        // TODO
+    }
+    private void SpawnMissingGemGridPositions()
+    {
+        // TODO
     }
 }

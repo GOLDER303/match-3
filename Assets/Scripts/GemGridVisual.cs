@@ -18,6 +18,7 @@ public class GemGridVisual : MonoBehaviour
     public void Setup(GemGridPosition gemGridPosition)
     {
         this.gemGridPosition = gemGridPosition;
+        gemGridPosition.OnGemGridPositionDestroyed += OnGemGridPositionDestroyedVisual;
     }
 
     private void Update()
@@ -44,5 +45,15 @@ public class GemGridVisual : MonoBehaviour
     private float evaluate(float x)
     {
         return .5f * Mathf.Sin(x - Mathf.PI / 2f) + .5f;
+    }
+
+    private void OnGemGridPositionDestroyedVisual()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        gemGridPosition.OnGemGridPositionDestroyed -= OnGemGridPositionDestroyedVisual;
     }
 }
