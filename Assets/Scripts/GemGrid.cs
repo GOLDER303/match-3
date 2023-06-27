@@ -101,4 +101,14 @@ public class GemGrid
 
         return true;
     }
+
+    public bool IsValidGridPosition(Vector2Int gemGridPositionXY)
+    {
+        if (gemGridPositionXY.x < 0 || gemGridPositionXY.y < 0 || gemGridPositionXY.x >= width || gemGridPositionXY.y >= height)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

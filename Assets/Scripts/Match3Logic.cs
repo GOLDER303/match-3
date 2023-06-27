@@ -29,6 +29,11 @@ public class Match3Logic : MonoBehaviour
 
     public IEnumerator HandleGemMove(Vector2Int gemOneXY, Vector2Int gemTwoXY)
     {
+        if (!grid.IsValidGridPosition(gemTwoXY) || !grid.IsValidGridPosition(gemTwoXY))
+        {
+            yield break;
+        }
+
         SwapGemsPositions(gemOneXY, gemTwoXY);
 
         yield return null;
@@ -54,6 +59,11 @@ public class Match3Logic : MonoBehaviour
 
     private void SwapGemsPositions(Vector2Int gemOneXY, Vector2Int gemTwoXY)
     {
+        if (!grid.IsValidGridPosition(gemTwoXY) || !grid.IsValidGridPosition(gemTwoXY))
+        {
+            return;
+        }
+
         GemGridPosition gemOneGridPosition = grid.GetGemGridPosition(gemOneXY);
         GemGridPosition gemTwoGridPosition = grid.GetGemGridPosition(gemTwoXY);
 
