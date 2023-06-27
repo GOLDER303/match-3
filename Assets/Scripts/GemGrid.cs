@@ -91,4 +91,14 @@ public class GemGrid
     {
         gridArray[gemGridPositionXY.x, gemGridPositionXY.y] = gemGridPosition;
     }
+
+    public bool IsValidGridPosition(int x, int y)
+    {
+        if (x < 0 || y < 0 || x >= width || y >= height)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
