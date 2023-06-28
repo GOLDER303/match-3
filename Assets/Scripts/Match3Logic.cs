@@ -44,7 +44,8 @@ public class Match3Logic : MonoBehaviour
         {
             while (DestroyAllMatches())
             {
-                FillEmptyGemGridPositions();
+                FallGemGridPositionsIntoDestroyedPositions();
+                yield return new WaitForSeconds(.5f);
                 SpawnMissingGemGridPositions();
             }
         }
@@ -169,9 +170,30 @@ public class Match3Logic : MonoBehaviour
         gemGridPositionToDestroy.Destroy();
     }
 
-    private void FillEmptyGemGridPositions()
+    private void FallGemGridPositionsIntoDestroyedPositions()
     {
-        // TODO
+        for (int x = 0; x < gridWidth; x++)
+        {
+            for (int y = 0; y < gridHeight; y++)
+            {
+                GemGridPosition gemGridPosition = grid.GetGemGridPosition(x, y);
+
+                if (!gemGridPosition.isDestroyed)
+                {
+                    int lowestDestroyedGemGridPositionY = y;
+
+                    while (lowestDestroyedGemGridPositionY >= 1 && IsGemGridPositionDestroyed(x, lowestDestroyedGemGridPositionY - 1))
+                    {
+                        lowestDestroyedGemGridPositionY--;
+                    }
+
+                    if (lowestDestroyedGemGridPositionY < y)
+                    {
+                        SwapGemsPositions(new Vector2Int(x, y), new Vector2Int(x, lowestDestroyedGemGridPositionY));
+                    }
+                }
+            }
+        }
     }
     private void SpawnMissingGemGridPositions()
     {
