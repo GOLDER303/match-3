@@ -35,11 +35,11 @@ public class GemGrid
             {
                 List<GemSO> availableGemSOs = new List<GemSO>(gemSos);
 
-                GemSO leftGem = gridArray[Mathf.Max(0, x - 1), y]?.GetGemSO();
-                GemSO secondLeftGem = gridArray[Mathf.Max(0, x - 2), y]?.GetGemSO();
+                GemSO leftGem = gridArray[Mathf.Max(0, x - 1), y]?.gemSO;
+                GemSO secondLeftGem = gridArray[Mathf.Max(0, x - 2), y]?.gemSO;
 
-                GemSO bottomGem = gridArray[x, Mathf.Max(0, y - 1)]?.GetGemSO();
-                GemSO secondBottomGem = gridArray[x, Mathf.Max(0, y - 2)]?.GetGemSO();
+                GemSO bottomGem = gridArray[x, Mathf.Max(0, y - 1)]?.gemSO;
+                GemSO secondBottomGem = gridArray[x, Mathf.Max(0, y - 2)]?.gemSO;
 
                 if (leftGem == secondLeftGem)
                 {

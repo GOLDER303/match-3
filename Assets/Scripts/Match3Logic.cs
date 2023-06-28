@@ -115,7 +115,7 @@ public class Match3Logic : MonoBehaviour
             return false;
         }
 
-        GemSO gemSO = gemGridPosition.GetGemSO();
+        GemSO gemSO = gemGridPosition.gemSO;
 
         int rightLinkCount = CountMatchingGems(gemSO, x, y, 1, 0);
         int leftLinkCount = CountMatchingGems(gemSO, x, y, -1, 0);
@@ -143,7 +143,7 @@ public class Match3Logic : MonoBehaviour
         while (grid.IsValidGridPosition(startX + (i * offsetX), startY + (i * offsetY)) &&
                !IsGemGridPositionDestroyed(startX + (i * offsetX), startY + (i * offsetY)))
         {
-            GemSO nextGemSO = grid.GetGemGridPosition(startX + (i * offsetX), startY + (i * offsetY)).GetGemSO();
+            GemSO nextGemSO = grid.GetGemGridPosition(startX + (i * offsetX), startY + (i * offsetY)).gemSO;
             if (nextGemSO == gemSO)
             {
                 linkCount++;

@@ -34,7 +34,7 @@ public class Match3Visual : MonoBehaviour
 
                 GameObject gemGridGameObject = Instantiate(gemGridVisualPrefab, position, Quaternion.identity, gemGridEmpty.transform);
                 gemGridGameObject.transform.localScale = new Vector3(gemGrid.cellSize - gemGrid.cellPadding, gemGrid.cellSize - gemGrid.cellPadding);
-                gemGridGameObject.GetComponent<SpriteRenderer>().sprite = gemGridPosition.GetGemSO().sprite;
+                gemGridGameObject.GetComponent<SpriteRenderer>().sprite = gemGridPosition.gemSO.sprite;
 
                 gemGridGameObject.GetComponent<GemGridVisual>().Setup(gemGridPosition);
 

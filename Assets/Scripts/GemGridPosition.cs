@@ -10,8 +10,7 @@ public class GemGridPosition
     public Vector3 worldPosition { get; set; }
     public bool isMoving { get; set; }
     public bool isDestroyed { get; private set; }
-
-    private GemSO gemSO;
+    public GemSO gemSO { get; }
 
     public GemGridPosition(GemSO gemSO, Vector3 worldPosition)
     {
@@ -25,10 +24,5 @@ public class GemGridPosition
     {
         isDestroyed = true;
         OnGemGridPositionDestroyed?.Invoke();
-    }
-
-    public GemSO GetGemSO()
-    {
-        return gemSO;
     }
 }
