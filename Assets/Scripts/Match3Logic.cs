@@ -47,6 +47,7 @@ public class Match3Logic : MonoBehaviour
                 FallGemGridPositionsIntoDestroyedPositions();
                 yield return new WaitForSeconds(.5f);
                 SpawnMissingGemGridPositions();
+                yield return new WaitForSeconds(.5f);
             }
         }
         else
@@ -197,6 +198,18 @@ public class Match3Logic : MonoBehaviour
     }
     private void SpawnMissingGemGridPositions()
     {
-        // TODO
+        for (int x = 0; x < gridWidth; x++)
+        {
+            for (int y = 0; y < gridHeight; y++)
+            {
+                GemGridPosition gemGridPosition = grid.GetGemGridPosition(x, y);
+
+                if (gemGridPosition.isDestroyed)
+                {
+                    gemGridPosition.Renew(gemSOs[UnityEngine.Random.Range(0, gemSOs.Count)], grid.GetGemGridPositionWorldPosition(x, y));
+                    match3Visual.SpawnGem(gemGridPosition);
+                }
+            }
+        }
     }
 }

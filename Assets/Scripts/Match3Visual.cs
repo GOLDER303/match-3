@@ -7,7 +7,7 @@ public class Match3Visual : MonoBehaviour
     [SerializeField] private GameObject gemGridVisualPrefab;
 
     private GemGrid gemGrid;
-    private Dictionary<GemGridPosition, GameObject> gemGridDictionary = new Dictionary<GemGridPosition, GameObject>();
+    private GameObject gemGridEmpty;
 
     private void OnEnable()
     {
@@ -22,8 +22,7 @@ public class Match3Visual : MonoBehaviour
     public void Setup(GemGrid gemGrid)
     {
         this.gemGrid = gemGrid;
-
-        GameObject gemGridEmpty = new GameObject("GemGrid");
+        gemGridEmpty = new GameObject("GemGrid");
 
         for (int x = 0; x < gemGrid.width; x++)
         {
@@ -37,9 +36,18 @@ public class Match3Visual : MonoBehaviour
                 gemGridGameObject.GetComponent<SpriteRenderer>().sprite = gemGridPosition.gemSO.sprite;
 
                 gemGridGameObject.GetComponent<GemGridVisual>().Setup(gemGridPosition);
-
-                gemGridDictionary[gemGridPosition] = gemGridGameObject;
             }
         }
+    }
+
+    public void SpawnGem(GemGridPosition gemGridPosition)
+    {
+        Vector3 position = gemGridPosition.worldPosition + new Vector3(0, (gemGrid.height + 1) * gemGrid.cellSize);
+
+        GameObject gemGridGameObject = Instantiate(gemGridVisualPrefab, position, Quaternion.identity, gemGridEmpty.transform);
+        gemGridGameObject.transform.localScale = new Vector3(gemGrid.cellSize - gemGrid.cellPadding, gemGrid.cellSize - gemGrid.cellPadding);
+        gemGridGameObject.GetComponent<SpriteRenderer>().sprite = gemGridPosition.gemSO.sprite;
+
+        gemGridGameObject.GetComponent<GemGridVisual>().Setup(gemGridPosition);
     }
 }
