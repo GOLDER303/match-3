@@ -12,6 +12,7 @@ public class Match3Logic : MonoBehaviour
     [SerializeField] private float cellSize = .8f;
     [SerializeField] private float cellPadding = .1f;
     [SerializeField] private List<GemSO> gemSOs;
+    [SerializeField] private ScoreManager scoreManager;
 
     private Match3Visual match3Visual;
     private GemGrid grid;
@@ -83,6 +84,7 @@ public class Match3Logic : MonoBehaviour
 
         foreach (Vector2Int gemGridPositionXY in allLinkedGemGridPositions)
         {
+            scoreManager.AddScore(100);
             DestroyGemGridPosition(gemGridPositionXY);
         }
 
