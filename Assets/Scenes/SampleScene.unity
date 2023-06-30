@@ -449,6 +449,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 77223a6cda61dc9479a04ab54d9dede5, type: 2}
   - {fileID: 11400000, guid: e5e7a3344de11964c8b434234a18a1b7, type: 2}
   - {fileID: 11400000, guid: aecd132c6a1cd8d4689a8ab540cbd275, type: 2}
+  - {fileID: 11400000, guid: 186d70a38f927ea48be537bb9b354972, type: 2}
   scoreManager: {fileID: 182187715}
 --- !u!114 &962442849
 MonoBehaviour:
