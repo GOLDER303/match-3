@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BlueGem
   m_EditorClassIdentifier: 
   gemName: BlueGem
-  sprite: {fileID: 21300000, guid: 7dbd1701cad79ce4e9d510a6f6089065, type: 3}
+  sprite: {fileID: 21300000, guid: cd9ec7fa6d54ac545a9ef8220718269e, type: 3}

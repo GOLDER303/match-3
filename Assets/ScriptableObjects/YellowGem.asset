@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c74f4ecef600104b93dac16a42a7b7b, type: 3}
-  m_Name: PurpleGem
+  m_Name: YellowGem
   m_EditorClassIdentifier: 
-  gemName: PurpleGem
-  sprite: {fileID: 21300000, guid: c898bf75b10840d478fb8e5c3e1aadbe, type: 3}
+  gemName: YellowGem
+  sprite: {fileID: 21300000, guid: 2d6ac4a570c74264a81b73719e5b496f, type: 3}

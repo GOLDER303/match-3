@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c74f4ecef600104b93dac16a42a7b7b, type: 3}
-  m_Name: RedGem
+  m_Name: BrownGem
   m_EditorClassIdentifier: 
-  gemName: RedGem
-  sprite: {fileID: 21300000, guid: 359cdde0b9c0d924b830afa2a793c185, type: 3}
+  gemName: BrownGem
+  sprite: {fileID: 21300000, guid: ede34115752a6824aaa76fa8f1712284, type: 3}
