@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gemName: BrownGem
   sprite: {fileID: 21300000, guid: ede34115752a6824aaa76fa8f1712284, type: 3}
+  destroyParticleSystem: {fileID: 8840476245021409852, guid: b933b87de6732be47904b756bf16970a, type: 3}

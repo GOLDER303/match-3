@@ -49,6 +49,7 @@ public class GemGridVisual : MonoBehaviour
 
     private void OnGemGridPositionDestroyedVisual()
     {
+        Instantiate(gemGridPosition.gemSO.destroyParticleSystem, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gemName: YellowGem
   sprite: {fileID: 21300000, guid: 2d6ac4a570c74264a81b73719e5b496f, type: 3}
+  destroyParticleSystem: {fileID: 8840476245021409852, guid: b6d2375a53bb6704bbbf1751d5ab80c7, type: 3}
